@@ -25,8 +25,8 @@
 
 %%
 
-statementList:		statement END
-	|		statement statementList
+statementList:		statement 
+	|		statement statementList 
 ;
 
 statement:			line END_STATEMENT
@@ -37,24 +37,47 @@ statement:			line END_STATEMENT
 ;
 
 line:				LINE INT INT INT INT
-				{ line($2, $3, $4, $5); }
+				{
+					line($2, $3, $4, $5);
+				}
 ;
 
 point:				POINT INT INT
-				{ point($2, $3); }
+				{ 
+					point($2, $3);
+				}
 ;
 
 circle:				CIRCLE INT INT INT
-				{ circle($2, $3, $4); }
+				{
+					if($4 > 0){
+						circle($2, $3, $4);
+					} else {
+						printf("Sorry that is an invalid circle radius");
+					}
+				}
 ;
 
 rectangle:			RECTANGLE INT INT INT INT
-				{ rectangle($2, $3, $4, $5); }
+				{
+					if($4 > 0 && $5 > 0){
+						rectangle($2, $3, $4, $5);
+					} else {
+						printf("Invalid width or height of rectangle");
+					}
+				}
 ;
 
 setColor:			SET_COLOR INT INT INT
-				{ set_color($2, $3, $4); }
+				{
+					if($2 > -1 && $2 < 256 && $3 > -1 && $3 < 256 && $4 > -1 && $4 < 256){
+	 					set_color($2, $3, $4);
+					} else {
+						printf("Sorry those are invalid RGB numbers");
+					}
+				}
 ;
+
 %%
 
 int main(int argc, char** argv){

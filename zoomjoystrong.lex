@@ -7,7 +7,7 @@
 
 %%
 
-end					{ return END; }
+\$end					{ return END; }
 ;					{ return END_STATEMENT; }
 point					{ return POINT; }
 line					{ return LINE; }
@@ -17,6 +17,6 @@ set_color				{ return SET_COLOR; }
 [0-9]+					{ yylval.i = atoi(yytext); return INT; }
 [0-9]+\.[0-9]+				{ yylval.f = atof(yytext); return FLOAT; }
 [ \t\r\n]				;
-[.]+					{ return 1; }
+notsure					{ printf("Sorry your syntax is incorrect, please try again!"); }
 
 %%
