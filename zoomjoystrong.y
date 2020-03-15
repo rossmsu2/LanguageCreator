@@ -25,35 +25,35 @@
 
 %%
 
-statementList:		statementList statement END
-	|				statement END
+statementList:		statement END
+	|		statement statementList
 ;
 
 statement:			line END_STATEMENT
-	|				point END_STATEMENT
-	|				circle END_STATEMENT
-	|				rectangle END_STATEMENT
-	|				setColor END_STATEMENT
+	|			point END_STATEMENT
+	|			circle END_STATEMENT
+	|			rectangle END_STATEMENT
+	|			setColor END_STATEMENT
 ;
 
 line:				LINE INT INT INT INT
-					{ line($2, $3, $4, $5); }
+				{ line($2, $3, $4, $5); }
 ;
 
 point:				POINT INT INT
-					{ point($2, $3); }
+				{ point($2, $3); }
 ;
 
 circle:				CIRCLE INT INT INT
-					{ circle($2, $3, $4); }
+				{ circle($2, $3, $4); }
 ;
 
 rectangle:			RECTANGLE INT INT INT INT
-					{ rectangle($2, $3, $4, $5); }
+				{ rectangle($2, $3, $4, $5); }
 ;
 
 setColor:			SET_COLOR INT INT INT
-					{ set_color($2, $3, $4); }
+				{ set_color($2, $3, $4); }
 ;
 %%
 

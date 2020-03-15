@@ -1,5 +1,5 @@
 
-#line 3 "lex.yy.c"
+#line 2 "lex.yy.c"
 
 #define  YY_INT_ALIGNED short int
 
@@ -470,8 +470,8 @@ char *yytext;
 #line 2 "zoomjoystrong.lex"
 	#include <stdio.h>
 	#include "zoomjoystrong.tab.h"
+#line 473 "lex.yy.c"
 #line 474 "lex.yy.c"
-#line 475 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -691,7 +691,7 @@ YY_DECL
 #line 8 "zoomjoystrong.lex"
 
 
-#line 695 "lex.yy.c"
+#line 694 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -748,12 +748,12 @@ do_action:	/* This label is used only to access EOF actions. */
 			yy_current_state = (yy_last_accepting_state);
 			goto yy_find_action;
 
-case YY_STATE_EOF(INITIAL):
+case 1:
+YY_RULE_SETUP
 #line 10 "zoomjoystrong.lex"
 { return END; }
 	YY_BREAK
-case 1:
-YY_RULE_SETUP
+case YY_STATE_EOF(INITIAL):
 #line 11 "zoomjoystrong.lex"
 { return END; }
 	YY_BREAK
@@ -806,14 +806,14 @@ YY_RULE_SETUP
 case 11:
 YY_RULE_SETUP
 #line 21 "zoomjoystrong.lex"
-{ printf("Sorry, Incorrect syntax"); }
+{ return 1; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
 #line 23 "zoomjoystrong.lex"
 ECHO;
 	YY_BREAK
-#line 817 "lex.yy.c"
+#line 816 "lex.yy.c"
 
 	case YY_END_OF_BUFFER:
 		{
