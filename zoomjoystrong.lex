@@ -8,7 +8,6 @@
 %%
 
 end					{ return END; }
-<<EOF>>					{ return END; }
 ;					{ return END_STATEMENT; }
 point					{ return POINT; }
 line					{ return LINE; }

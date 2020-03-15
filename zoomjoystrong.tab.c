@@ -1588,7 +1588,9 @@ yyreturn:
 
 
 int main(int argc, char** argv){
+	setup();
 	yyparse();
+	finish();
 	return 0;
 }
 
