@@ -72,8 +72,19 @@
 	#include "zoomjoystrong.h"
 	void yyerror(const char* msg);
 	int yylex();
+	/*
+	@author Ross Kuiper
+	@date 3/15/2020 
+	This bison file takes the tokens in the stream
+	and checks to see if they form sentences in this 
+	language. It gives INT and FLOAT their proper types
+	and handles any invalid number inputs. If a syntax
+	error occurs where the program is looking for a 
+	different token than what is given, the program
+	will report the error and then close.
+	*/
 
-#line 77 "zoomjoystrong.tab.c"
+#line 88 "zoomjoystrong.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -137,10 +148,10 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 11 "zoomjoystrong.y"
+#line 22 "zoomjoystrong.y"
  int i; float f; 
 
-#line 144 "zoomjoystrong.tab.c"
+#line 155 "zoomjoystrong.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -516,8 +527,8 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    28,    28,    29,    32,    33,    34,    35,    36,    39,
-      45,    51,    61,    71
+       0,    39,    39,    40,    43,    44,    45,    46,    47,    50,
+      56,    62,    72,    82
 };
 #endif
 
@@ -1322,59 +1333,59 @@ yyreduce:
   switch (yyn)
     {
   case 9:
-#line 40 "zoomjoystrong.y"
+#line 51 "zoomjoystrong.y"
                                 {
 					line((yyvsp[-3].i), (yyvsp[-2].i), (yyvsp[-1].i), (yyvsp[0].i));
 				}
-#line 1330 "zoomjoystrong.tab.c"
+#line 1341 "zoomjoystrong.tab.c"
     break;
 
   case 10:
-#line 46 "zoomjoystrong.y"
+#line 57 "zoomjoystrong.y"
                                 { 
 					point((yyvsp[-1].i), (yyvsp[0].i));
 				}
-#line 1338 "zoomjoystrong.tab.c"
+#line 1349 "zoomjoystrong.tab.c"
     break;
 
   case 11:
-#line 52 "zoomjoystrong.y"
+#line 63 "zoomjoystrong.y"
                                 {
 					if((yyvsp[0].i) > 0){
 						circle((yyvsp[-2].i), (yyvsp[-1].i), (yyvsp[0].i));
 					} else {
-						printf("Sorry that is an invalid circle radius");
+						printf("Sorry that is an invalid circle radius\n");
 					}
 				}
-#line 1350 "zoomjoystrong.tab.c"
+#line 1361 "zoomjoystrong.tab.c"
     break;
 
   case 12:
-#line 62 "zoomjoystrong.y"
+#line 73 "zoomjoystrong.y"
                                 {
 					if((yyvsp[-1].i) > 0 && (yyvsp[0].i) > 0){
 						rectangle((yyvsp[-3].i), (yyvsp[-2].i), (yyvsp[-1].i), (yyvsp[0].i));
 					} else {
-						printf("Invalid width or height of rectangle");
+						printf("Invalid width or height of rectangle\n");
 					}
 				}
-#line 1362 "zoomjoystrong.tab.c"
+#line 1373 "zoomjoystrong.tab.c"
     break;
 
   case 13:
-#line 72 "zoomjoystrong.y"
+#line 83 "zoomjoystrong.y"
                                 {
-					if((yyvsp[-2].i) > -1 && (yyvsp[-2].i) < 256 && (yyvsp[-1].i) > -1 && (yyvsp[-1].i) < 256 && (yyvsp[0].i) > -1 && (yyvsp[0].i) < 256){
+					if((yyvsp[-2].i) < 256 && (yyvsp[-1].i) < 256 && (yyvsp[0].i) < 256){
 	 					set_color((yyvsp[-2].i), (yyvsp[-1].i), (yyvsp[0].i));
 					} else {
-						printf("Sorry those are invalid RGB numbers");
+						printf("Sorry those are invalid RGB numbers\n");
 					}
 				}
-#line 1374 "zoomjoystrong.tab.c"
+#line 1385 "zoomjoystrong.tab.c"
     break;
 
 
-#line 1378 "zoomjoystrong.tab.c"
+#line 1389 "zoomjoystrong.tab.c"
 
       default: break;
     }
@@ -1606,7 +1617,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 81 "zoomjoystrong.y"
+#line 92 "zoomjoystrong.y"
 
 
 int main(int argc, char** argv){
@@ -1618,5 +1629,7 @@ int main(int argc, char** argv){
 
 void yyerror(const char* msg){
 	fprintf(stderr, "ERROR! %s\n", msg);
+	printf("Sorry, due to the error this program will close.\n");
+	finish();
 }
 

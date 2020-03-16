@@ -3,6 +3,17 @@
 	#include "zoomjoystrong.h"
 	void yyerror(const char* msg);
 	int yylex();
+	/*
+	@author Ross Kuiper
+	@date 3/15/2020 
+	This bison file takes the tokens in the stream
+	and checks to see if they form sentences in this 
+	language. It gives INT and FLOAT their proper types
+	and handles any invalid number inputs. If a syntax
+	error occurs where the program is looking for a 
+	different token than what is given, the program
+	will report the error and then close.
+	*/
 %}
 
 %error-verbose
@@ -53,7 +64,7 @@ circle:				CIRCLE INT INT INT
 					if($4 > 0){
 						circle($2, $3, $4);
 					} else {
-						printf("Sorry that is an invalid circle radius");
+						printf("Sorry that is an invalid circle radius\n");
 					}
 				}
 ;
@@ -63,17 +74,17 @@ rectangle:			RECTANGLE INT INT INT INT
 					if($4 > 0 && $5 > 0){
 						rectangle($2, $3, $4, $5);
 					} else {
-						printf("Invalid width or height of rectangle");
+						printf("Invalid width or height of rectangle\n");
 					}
 				}
 ;
 
 setColor:			SET_COLOR INT INT INT
 				{
-					if($2 > -1 && $2 < 256 && $3 > -1 && $3 < 256 && $4 > -1 && $4 < 256){
+					if($2 < 256 && $3 < 256 && $4 < 256){
 	 					set_color($2, $3, $4);
 					} else {
-						printf("Sorry those are invalid RGB numbers");
+						printf("Sorry those are invalid RGB numbers\n");
 					}
 				}
 ;
@@ -89,5 +100,7 @@ int main(int argc, char** argv){
 
 void yyerror(const char* msg){
 	fprintf(stderr, "ERROR! %s\n", msg);
+	printf("Sorry, due to the error this program will close.\n");
+	finish();
 }
 
